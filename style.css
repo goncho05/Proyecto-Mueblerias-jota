@@ -491,6 +491,27 @@ select {
 .campo-error {
   color: var(--rosa-polvoriento);
   font-size: 0.85rem;
+  min-height: 1.2em;
+}
+
+.formulario-contacto__exito {
+  display: none;
+  margin: 0 auto 1.25rem;
+  max-width: 560px;
+  padding: 0.9rem 1.1rem;
+  background-color: var(--blanco);
+  border-left: 4px solid var(--verde-salvia);
+  border-radius: 0 var(--radio) var(--radio) 0;
+  color: var(--texto-cuerpo);
+}
+
+.formulario-contacto__exito.is-visible {
+  display: block;
+}
+
+.formulario-contacto input.is-invalid,
+.formulario-contacto textarea.is-invalid {
+  border-color: var(--rosa-polvoriento);
 }
 
 .formulario-contacto .boton-primario,

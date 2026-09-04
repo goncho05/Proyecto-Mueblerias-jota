@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mueblería Hermanos Jota</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-principal" aria-label="Navegación principal">
+            <a href="index.html" class="brand">
+                <img src="../Kit de imágenes/logo.svg" alt="Logo Mueblería Hermanos Jota" class="brand__logo">
+                <span>Hermanos Jota</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+            </ul>
+            <a href="#" class="carrito-header" aria-label="Ver carrito">
+                🛒 <span id="contador-carrito">0</span>
+            </a>
+        </nav>
+    </header>
+     <section class="contacto" aria-labelledby="titulo-contacto">
+            <h2 id="titulo-contacto">Contacto</h2>
+            <p id="mensaje-exito" class="formulario-contacto__exito" role="status" aria-live="polite"></p>
+
+            <form id="formulario-contacto" class="formulario-contacto" action="#" method="post" novalidate>
+                <div class="formulario-contacto__grupo">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+                    <span id="error-nombre" class="formulario-contacto__error"></span>
+                </div>
+
+                <div class="formulario-contacto__grupo">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                    <span id="error-email" class="formulario-contacto__error"></span>
+                </div>
+
+                <div class="formulario-contacto__grupo">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                    <span id="error-mensaje" class="formulario-contacto__error"></span>
+                </div>
+
+                <button type="submit" class="boton-primario">Enviar consulta</button>
+            </form>
+        </section>
+        
+    <footer class="site-footer">
+        <div class="footer__col footer__col--marca">
+            <img src="Kit de imágenes/logo.svg" alt="Logo Mueblería Hermanos Jota" class="footer__logo">
+            <h3>Mueblería Hermanos Jota</h3>
+            <p>Muebles de madera maciza hechos a mano, desde 1996.</p>
+        </div>
+        <div class="footer__col">
+            <h4>Showroom y Taller</h4>
+            <p>Hermanos Jota — Casa Taller</p>
+            <p>Av. San Juan 2847, Barrio de San Cristóbal</p>
+            <p>C1232AAB — Ciudad Autónoma de Buenos Aires, Argentina</p>
+            <p>WhatsApp: +54 11 4567-8900</p>
+            <p>info@hermanosjota.com.ar</p>
+            <p>ventas@hermanosjota.com.ar</p>
+        </div>
+        <div class="footer__col">
+            <h4>Horarios</h4>
+            <p>Lunes a viernes: 10 a 19hs</p>
+            <p>Sábados: 10 a 14hs</p>
+            <p>Instagram: @hermanosjota_ba</p>
+        </div>
+        <p class="footer__copy">&copy; 2026 Mueblería Hermanos Jota. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

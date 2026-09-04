@@ -32,4 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btnCarrito) btnCarrito.style.display = 'none';
         }
     }
+
+    // --- 2. LÓGICA DEL BUSCADOR EN VIVO ---
+    const inputBuscador = document.getElementById('buscador-productos');
+    const contenedorGrilla = document.querySelector('.grid-productos');
+    
+    // Verificamos que existan el input y la grilla
+    if (inputBuscador && contenedorGrilla) {
+        inputBuscador.addEventListener('input', (evento) => {
+            const textoBusqueda = evento.target.value.toLowerCase().trim();
+
+            const productosFiltrados = productos.filter(mueble => 
+                mueble.nombre.toLowerCase().includes(textoBusqueda)
+            );
+
+            if (typeof renderizarGrilla === 'function') {
+                renderizarGrilla(productosFiltrados);
+            }
+        });
+    }
 });

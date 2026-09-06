@@ -3,53 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mueblería Hermanos Jota</title>
+    <title>Carrito | Mueblería Hermanos Jota</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <header class="site-header">
         <nav class="nav-principal" aria-label="Navegación principal">
-            <a href="index.html" class="brand">
-                <img src="Kit de imágenes/logo.svg" alt="Logo Mueblería Hermanos Jota" class="brand__logo">
+            <a href="../index.html" class="brand">
+                <img src="../Kit de imágenes/logo.svg" alt="Logo Mueblería Hermanos Jota" class="brand__logo">
                 <span>Hermanos Jota</span>
             </a>
             <ul class="nav-links">
-                <li><a href="index.html" aria-current="page">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="html/contacto.html">Contacto</a></li>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="../productos.html">Productos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
             </ul>
-            <a href="html/carrito.html" class="carrito-header" aria-label="Ver carrito">
+            <a href="carrito.html" class="carrito-header" aria-current="page" aria-label="Ver carrito">
                 🛒 <span id="contador-carrito">0</span>
             </a>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero__contenido">
-                <h1>Muebles con historia, para tu hogar</h1>
-                <p>
-                    Desde hace 30 años trabajamos la madera maciza con manos artesanas.
-                    Cada mueble de Hermanos Jota está pensado para acompañarte por generaciones.
-                </p>
-                <a href="productos.html" class="boton-primario">Ver catálogo</a>
-            </div>
-        </section>
-
-        <section class="destacados" aria-labelledby="titulo-destacados">
-            <h2 id="titulo-destacados">Productos destacados</h2>
-            <div id="grid-destacados" class="grid-productos">
-                <!-- Estas tarjetas se generan dinámicamente desde app.js + productos.js -->
+        <section class="carrito" aria-labelledby="titulo-carrito">
+            <h2 id="titulo-carrito">Tu carrito</h2>
+            <p id="carrito-vacio" class="carrito-vacio">
+                Todavía no agregaste productos. Explorá el catálogo y sumá tus muebles favoritos.
+            </p>
+            <div id="lista-carrito" class="carrito-lista"></div>
+            <div id="carrito-resumen" class="carrito-resumen" hidden>
+                <p>Total: <strong id="carrito-total">$0</strong></p>
+                <button type="button" class="boton-secundario" data-vaciar-carrito>Vaciar carrito</button>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
         <div class="footer__col footer__col--marca">
-            <img src="Kit de imágenes/logo.svg" alt="Logo Mueblería Hermanos Jota" class="footer__logo">
+            <img src="../Kit de imágenes/logo.svg" alt="Logo Mueblería Hermanos Jota" class="footer__logo">
             <h3>Mueblería Hermanos Jota</h3>
             <p>Muebles de madera maciza hechos a mano, desde 1996.</p>
         </div>
@@ -71,8 +65,6 @@
         <p class="footer__copy">&copy; 2026 Mueblería Hermanos Jota. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="productos.js"></script>
-    <script src="js/carrito.js"></script>
-    <script src="app.js"></script>
+    <script src="../js/carrito.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ const productos = [
     {
         id: "1",
         nombre: "Aparador Uspallata",
+        precio: 1250000,
         categoria: "Almacenamiento",
         descripcion:
             "Aparador de seis puertas fabricado en nogal sostenible con tiradores metálicos en acabado latón. Su silueta minimalista realza el veteado natural de la madera, creando una pieza que combina funcionalidad y elegancia atemporal para espacios contemporáneos.",
@@ -18,6 +19,7 @@ const productos = [
     {
         id: "2",
         nombre: "Biblioteca Recoleta",
+        precio: 980000,
         categoria: "Almacenamiento",
         descripcion:
             "Sistema modular de estantes abierto que combina estructura de acero Sage Green y repisas en roble claro. Perfecta para colecciones y objetos de diseño, su diseño versátil se adapta a cualquier espacio contemporáneo con elegancia funcional.",
@@ -34,6 +36,7 @@ const productos = [
     {
         id: "3",
         nombre: "Butaca Mendoza",
+        precio: 540000,
         categoria: "Asientos",
         descripcion:
             "Butaca tapizada en bouclé Dusty Rose con base de madera de guatambú. El respaldo curvo abraza el cuerpo y ofrece máximo confort, mientras que su diseño orgánico aporta calidez y sofisticación.",
@@ -50,6 +53,7 @@ const productos = [
     {
         id: "4",
         nombre: "Sillón Copacabana",
+        precio: 780000,
         categoria: "Asientos",
         descripcion:
             "Sillón lounge en cuero cognac con base giratoria en acero Burnt Sienna. Inspirado en la estética brasilera moderna de los años 60, combina comodidad excepcional con un diseño icónico que trasciende tendencias y épocas.",
@@ -66,6 +70,7 @@ const productos = [
     {
         id: "5",
         nombre: "Mesa de Centro Araucaria",
+        precio: 620000,
         categoria: "Mesas",
         descripcion:
             "Mesa de centro con sobre circular de mármol Patagonia y base de tres patas en madera de nogal. Su diseño minimalista combina la frialdad del mármol con la calidez de la madera.",
@@ -82,6 +87,7 @@ const productos = [
     {
         id: "6",
         nombre: "Mesa de Noche Aconcagua",
+        precio: 290000,
         categoria: "Mesas",
         descripcion:
             "Mesa de noche con cajón oculto y repisa inferior en roble certificado FSC®. Su diseño limpio y funcional permite convivir con diferentes estilos de dormitorio, ofreciendo almacenamiento discreto y elegante.",
@@ -98,6 +104,7 @@ const productos = [
     {
         id: "7",
         nombre: "Sofá Patagonia",
+        precio: 1450000,
         categoria: "Asientos",
         descripcion:
             "Sofá de tres cuerpos tapizado en lino Warm Alabaster con patas cónicas de madera. Los cojines combinan espuma de alta resiliencia con plumón reciclado, ofreciendo comodidad duradera y sostenible.",
@@ -114,6 +121,7 @@ const productos = [
     {
         id: "8",
         nombre: "Mesa Comedor Pampa",
+        precio: 1120000,
         categoria: "Mesas",
         descripcion:
             "Mesa extensible de roble macizo con tablero biselado y sistema de apertura suave. Su diseño robusto y elegante se adapta perfectamente a reuniones íntimas o grandes celebraciones familiares.",
@@ -130,6 +138,7 @@ const productos = [
     {
         id: "9",
         nombre: "Sillas Córdoba",
+        precio: 480000,
         categoria: "Asientos",
         descripcion:
             "Set de cuatro sillas apilables en contrachapado moldeado de nogal y estructura tubular pintada en Sage Green. Su diseño ergonómico y sus materiales garantizan comodidad y durabilidad.",
@@ -146,6 +155,7 @@ const productos = [
     {
         id: "10",
         nombre: "Escritorio Costa",
+        precio: 680000,
         categoria: "Oficina",
         descripcion:
             "Escritorio compacto con cajón organizador y tapa pasacables integrada en bambú laminado. Ideal para espacios de trabajo en casa, combina funcionalidad moderna con estética minimalista.",
@@ -162,6 +172,7 @@ const productos = [
     {
         id: "11",
         nombre: "Silla de Trabajo Belgrano",
+        precio: 360000,
         categoria: "Oficina",
         descripcion:
             "Silla ergonómica regulable en altura con respaldo de malla transpirable y asiento tapizado en tejido reciclado. Diseñada para largas jornadas de trabajo con máximo confort y apoyo lumbar.",

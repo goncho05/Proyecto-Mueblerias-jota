@@ -4,7 +4,25 @@ function leerCarrito() {
     try {
         const datos = localStorage.getItem(CLAVE_CARRITO);
         const carrito = datos ? JSON.parse(datos) : [];
-        return Array.isArray(carrito) ? carrito : [];
+        if (!Array.isArray(carrito)) {
+            return [];
+        }
+
+        if (typeof productos !== "undefined") {
+            return carrito.map(function (item) {
+                const producto = productos.find(function (productoCatalogo) {
+                    return String(productoCatalogo.id) === String(item.id);
+                });
+
+                if (Number(item.precio) === 0 && producto && Number(producto.precio) > 0) {
+                    return Object.assign({}, item, { precio: Number(producto.precio) });
+                }
+
+                return item;
+            });
+        }
+
+        return carrito;
     } catch (error) {
         return [];
     }
@@ -42,6 +60,9 @@ function agregarAlCarrito(producto) {
 
     if (existente) {
         existente.cantidad = Number(existente.cantidad || 0) + Number(producto.cantidad || 1);
+        if (Number(existente.precio) === 0 && Number(producto.precio) > 0) {
+            existente.precio = Number(producto.precio);
+        }
     } else {
         carrito.push({
             id: id,
@@ -94,6 +115,19 @@ function formatearPrecio(valor) {
     }).format(Number(valor) || 0);
 }
 
+function resolverImagenCarrito(rutaImagen) {
+    if (!rutaImagen) {
+        return "";
+    }
+
+    if (/^(https?:|file:|data:|blob:)/i.test(rutaImagen)) {
+        return rutaImagen;
+    }
+
+    const rutaDesdeRaiz = rutaImagen.replace(/^(\.\.\/)+/, "");
+    return new URL("../" + rutaDesdeRaiz, document.baseURI).href;
+}
+
 function renderizarPaginaCarrito() {
     const lista = document.getElementById("lista-carrito");
     const vacio = document.getElementById("carrito-vacio");
@@ -134,8 +168,8 @@ function renderizarPaginaCarrito() {
         articulo.className = "carrito-item";
         articulo.dataset.id = String(item.id);
 
-        const imagen = item.imagen
-            ? '<img src="' + item.imagen + '" alt="" class="carrito-item__imagen">'
+        const imagen = resolverImagenCarrito(item.imagen)
+            ? '<img src="' + resolverImagenCarrito(item.imagen) + '" alt="" class="carrito-item__imagen">'
             : '<div class="carrito-item__imagen carrito-item__imagen--vacia" aria-hidden="true"></div>';
 
         articulo.innerHTML =

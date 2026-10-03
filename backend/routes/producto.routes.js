@@ -11,7 +11,7 @@ router.get("/",(req,res) => {
 router.get("/:id",(req,res) => {
     const id = Number(req.params.id);
     if(!Number.isInteger(id) || id <= 0){
-        return res.status(400),json({mensaje: "El ID debe ser un entero positivo"});
+        return res.status(400).json({mensaje: "El ID debe ser un entero positivo"});
     }
 
     const producto = productos.find(p => p.id === id);

@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("renders brand navigation and cart badge", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/hermanos jota/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/carrito de compras/i)).toBeInTheDocument();
 });

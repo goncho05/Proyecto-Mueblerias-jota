@@ -1,6 +1,6 @@
 const productos = [
     {
-        id: "1",
+        id: 1,
         nombre: "Aparador Uspallata",
         precio: 1250000,
         categoria: "Almacenamiento",
@@ -17,7 +17,7 @@ const productos = [
         }
     },
     {
-        id: "2",
+        id: 2,
         nombre: "Biblioteca Recoleta",
         precio: 980000,
         categoria: "Almacenamiento",
@@ -34,7 +34,7 @@ const productos = [
         }
     },
     {
-        id: "3",
+        id: 3,
         nombre: "Butaca Mendoza",
         precio: 540000,
         categoria: "Asientos",
@@ -51,7 +51,7 @@ const productos = [
         }
     },
     {
-        id: "4",
+        id: 4,
         nombre: "Sillón Copacabana",
         precio: 780000,
         categoria: "Asientos",
@@ -68,7 +68,7 @@ const productos = [
         }
     },
     {
-        id: "5",
+        id: 5,
         nombre: "Mesa de Centro Araucaria",
         precio: 620000,
         categoria: "Mesas",
@@ -85,7 +85,7 @@ const productos = [
         }
     },
     {
-        id: "6",
+        id: 6,
         nombre: "Mesa de Noche Aconcagua",
         precio: 290000,
         categoria: "Mesas",
@@ -102,7 +102,7 @@ const productos = [
         }
     },
     {
-        id: "7",
+        id: 7,
         nombre: "Sofá Patagonia",
         precio: 1450000,
         categoria: "Asientos",
@@ -119,7 +119,7 @@ const productos = [
         }
     },
     {
-        id: "8",
+        id: 8,
         nombre: "Mesa Comedor Pampa",
         precio: 1120000,
         categoria: "Mesas",
@@ -136,7 +136,7 @@ const productos = [
         }
     },
     {
-        id: "9",
+        id: 9,
         nombre: "Sillas Córdoba",
         precio: 480000,
         categoria: "Asientos",
@@ -153,7 +153,7 @@ const productos = [
         }
     },
     {
-        id: "10",
+        id: 10,
         nombre: "Escritorio Costa",
         precio: 680000,
         categoria: "Oficina",
@@ -170,7 +170,7 @@ const productos = [
         }
     },
     {
-        id: "11",
+        id: 11,
         nombre: "Silla de Trabajo Belgrano",
         precio: 360000,
         categoria: "Oficina",

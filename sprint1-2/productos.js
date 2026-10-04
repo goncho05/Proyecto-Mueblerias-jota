@@ -196,3 +196,7 @@ function cargarProductos() {
         }, 800);
     });
 }
+
+if (typeof module !== "undefined") {
+    module.exports = productos;
+}

@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-
-=======
 const express = require("express");
 const cors = require("cors");
+const path = require("node:path");
 
 const registrarSolicitud = require("./middlewares/logger");
 const { rutaNoEncontrada, manejadorErrores } = require("./middlewares/errorHandler");
@@ -15,6 +13,10 @@ aplicacion.use(cors());
 aplicacion.use(express.json());
 aplicacion.use(registrarSolicitud);
 
+aplicacion.use(
+  "/assets/productos",
+  express.static(path.join(__dirname, "../sprint1-2/Kit de imágenes"))
+);
 aplicacion.use("/api/productos", productosRouter);
 
 aplicacion.use(rutaNoEncontrada);
@@ -31,4 +33,3 @@ if (require.main === module) {
 }
 
 module.exports = { aplicacion, iniciarServidor };
->>>>>>> feature/backend-server

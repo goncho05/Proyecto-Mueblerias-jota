@@ -4,10 +4,7 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      id="contacto"
-      className="mt-auto bg-[#A0522D] px-5 pb-6 pt-10 text-[#F5E6D3]"
-    >
+    <footer className="mt-auto bg-[#A0522D] px-5 pb-6 pt-10 text-[#F5E6D3]">
       <div className="mx-auto grid w-full max-w-[1120px] gap-8 md:grid-cols-3">
         <div className="flex flex-col gap-2">
           <img

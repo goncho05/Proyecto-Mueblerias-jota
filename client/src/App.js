@@ -1,9 +1,13 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ContactForm from "./components/ContactForm";
+import ProductDetail from "./components/ProductDetail";
+import ProductList from "./components/ProductList";
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState(null);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -51,26 +55,22 @@ function App() {
             <h2 className="mb-3 font-titulos text-xl font-bold uppercase tracking-[0.1em] text-[#A0522D]">
               Catálogo
             </h2>
-            <p className="m-0 mb-5 text-sm leading-relaxed text-[#2D2D2D]/80">
-              Espacio reservado para las vistas de productos. El botón de
-              prueba confirma el flujo unidireccional: App actualiza el carrito
-              y Navbar recibe el contador por props.
-            </p>
-            <button
-              type="button"
-              onClick={() =>
-                addToCart({
-                  id: "demo-silla",
-                  nombre: "Silla demo",
-                  precio: 45000,
-                })
-              }
-              className="rounded-lg bg-[#A0522D] px-5 py-2.5 text-sm font-medium uppercase tracking-[0.08em] text-white transition hover:bg-[#D4A437]"
-            >
-              Agregar producto
-            </button>
+            {selectedProductId !== null && (
+              <ProductDetail
+                productId={selectedProductId}
+                onClose={() => setSelectedProductId(null)}
+                onAddToCart={addToCart}
+              />
+            )}
+            <ProductList
+              onSelectProduct={setSelectedProductId}
+              onAddToCart={addToCart}
+            />
           </div>
         </section>
+        <div className="mt-8">
+          <ContactForm />
+        </div>
       </main>
 
       <Footer />

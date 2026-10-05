@@ -1,5 +1,5 @@
 const express = require("express");
-const productos = require("../../sprint1-2/productos");
+const productos = require("../data/productos");
 
 const router = express.Router();
 
@@ -8,7 +8,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  const producto = productos.find((elemento) => elemento.id === req.params.id);
+  const producto = productos.find(
+    (elemento) => String(elemento.id) === req.params.id
+  );
 
   if (!producto) {
     return next();

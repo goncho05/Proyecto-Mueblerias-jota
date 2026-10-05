@@ -1,22 +1,25 @@
 const express = require("express");
-const productos = require("../data/productos");
-
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json(productos);
-});
+const productos = require("../data/productos");
 
-router.get("/:id", (req, res, next) => {
-  const producto = productos.find(
-    (elemento) => String(elemento.id) === req.params.id
-  );
+//obtenemos todos los productos del JSON
+router.get("/",(req,res) => {
+    res.status(200).json(productos);
+})
+//obtenemos por un id el producto
+router.get("/:id",(req,res) => {
+    const id = Number(req.params.id);
+    if(!Number.isInteger(id) || id <= 0){
+        return res.status(400).json({mensaje: "El ID debe ser un entero positivo"});
+    }
 
-  if (!producto) {
-    return next();
-  }
+    const producto = productos.find(p => p.id === id);
+    if(!producto){
+        return res.status(404).json({mensaje: "Producto no encontrado"});
+    }
 
-  res.json(producto);
-});
+    return res.status(200).json(producto);
+})
 
 module.exports = router;

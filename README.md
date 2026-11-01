@@ -1,8 +1,6 @@
 # Mueblería Hermanos Jota — E-commerce
 
-Aplicación web de catálogo para la Mueblería Hermanos Jota. Incluye un
-frontend en React, una API REST en Node.js y Express, consulta de productos,
-vista de detalle y carrito de compras en memoria.
+Aplicación web de catálogo para la **Mueblería Hermanos Jota**. Incluye un frontend en React, una API REST en Node.js y Express, consulta de productos, vista de detalle y carrito de compras en memoria.
 
 ## Integrantes
 
@@ -12,16 +10,17 @@ vista de detalle y carrito de compras en memoria.
 - Gonzalo Esteban Ibrahim
 - Valentina Rudelli
 
+---
 
 ## Arquitectura
 
-- `/backend` — API REST con Node.js + Express
-- `/client` — Frontend con React (creado con create-react-app)
+- **/backend** — API REST con Node.js + Express
+- **/client** — Frontend con React (creado con `create-react-app`)
 
-El frontend ya no tiene los productos hardcodeados: los pide al backend con fetch a `GET /api/productos`. El backend expone los datos que antes vivían en `productos.js` del lado del cliente.
+El frontend ya no tiene los productos hardcodeados: los pide al backend con `fetch` a `GET /api/productos`. El backend expone los datos que antes vivían en `productos.js` del lado del cliente.
 
 - **Backend:** `server.js` centraliza la configuración; las rutas están separadas en `routes/productos.routes.js` con `express.Router`, y hay dos middlewares propios: `logger.js` (loguea método y URL de cada solicitud) y `errorHandler.js` (maneja 404 y errores de forma centralizada).
-- **Frontend:** `App.js` es el único componente con estado global (la vista actual y el carrito). El resto de los componentes (`Navbar`, `ProductList`, `ProductCard`, `ProductDetail`, `ContactForm`, `Footer`) reciben lo que necesitan por props y no comparten estado entre sí directamente.
+- **Frontend:** `App.js` es el único componente con estado global (la vista actual y el carrito). El resto de los componentes (`Navbar`, `ProductList`, `ProductCard`, `ProductDetail`, `ContactForm`, `Footer`) reciben lo que necesitan por `props` y no comparten estado entre sí directamente.
 
 ---
 
@@ -33,10 +32,40 @@ El frontend ya no tiene los productos hardcodeados: los pide al backend con fetc
 
 ---
 
-## Instalación y ejecución
+## Instalación y Ejecución
 
 ### Backend
-```bash
-cd backend
-npm install
-node server.js
+
+1. Ingresar a la carpeta del servidor:
+   ```bash
+   cd backend
+   ```
+
+2. Instalar las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Iniciar el servidor backend:
+   ```bash
+   node server.js
+   ```
+
+---
+
+### Frontend (Client)
+
+1. Ingresar a la carpeta del cliente:
+   ```bash
+   cd client
+   ```
+
+2. Instalar las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Iniciar la aplicación en modo desarrollo:
+   ```bash
+   npm start
+   ```

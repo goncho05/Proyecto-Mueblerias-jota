@@ -1,25 +1,19 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from 'express'
+import {
+  obtenerProductos,
+  obtenerProductoPorId,
+  crearProducto,
+  actualizarProducto,
+  eliminarProducto,
+} from '../controllers/producto.controller.js'
 
-const productos = require("../data/productos");
+const router = Router()
 
-//obtenemos todos los productos del JSON
-router.get("/",(req,res) => {
-    res.status(200).json(productos);
-})
-//obtenemos por un id el producto
-router.get("/:id",(req,res) => {
-    const id = Number(req.params.id);
-    if(!Number.isInteger(id) || id <= 0){
-        return res.status(400).json({mensaje: "El ID debe ser un entero positivo"});
-    }
+// Rutas del CRUD de productos conectadas a la base de datos
+router.get('/', obtenerProductos)
+router.get('/:id', obtenerProductoPorId)
+router.post('/', crearProducto)
+router.put('/:id', actualizarProducto)
+router.delete('/:id', eliminarProducto)
 
-    const producto = productos.find(p => p.id === id);
-    if(!producto){
-        return res.status(404).json({mensaje: "Producto no encontrado"});
-    }
-
-    return res.status(200).json(producto);
-})
-
-module.exports = router;
+export default router

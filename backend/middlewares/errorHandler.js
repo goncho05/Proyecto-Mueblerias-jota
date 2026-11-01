@@ -22,4 +22,4 @@ function manejadorErrores(error, req, res, next) {
   });
 }
 
-module.exports = { rutaNoEncontrada, manejadorErrores };
+export { rutaNoEncontrada, manejadorErrores };

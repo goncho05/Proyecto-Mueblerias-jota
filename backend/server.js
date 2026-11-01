@@ -1,16 +1,19 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("node:path");
-const dotenv = require("dotenv");
-const connectDB = require("./config/db");
+import express from "express";
+import cors from "cors";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 
+import registrarSolicitud from "./middlewares/logger.js";
+import { rutaNoEncontrada, manejadorErrores } from "./middlewares/errorHandler.js";
+import productosRouter from "./routes/productos.routes.js";
+
+// Cargar variables de entorno
 dotenv.config();
 
+// Conectar a MongoDB
 connectDB();
-
-const registrarSolicitud = require("./middlewares/logger");
-const { rutaNoEncontrada, manejadorErrores } = require("./middlewares/errorHandler");
-const productosRouter = require("./routes/productos.routes");
 
 const aplicacion = express();
 const puerto = process.env.PORT || 3001;
@@ -21,7 +24,7 @@ aplicacion.use(registrarSolicitud);
 
 aplicacion.use(
   "/assets/productos",
-  express.static(path.join(__dirname, "../sprint1-2/Kit de imágenes"))
+  express.static(path.join(process.cwd(), "../sprint1-2/Kit de imágenes"))
 );
 aplicacion.use("/api/productos", productosRouter);
 
@@ -34,8 +37,11 @@ function iniciarServidor() {
   });
 }
 
-if (require.main === module) {
+if (
+  process.argv[1] === new URL(import.meta.url).pathname ||
+  (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url))
+) {
   iniciarServidor();
 }
 
-module.exports = { aplicacion, iniciarServidor };
+export { aplicacion, iniciarServidor };

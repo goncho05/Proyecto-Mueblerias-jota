@@ -188,4 +188,5 @@ const productos = [
     }
 ];
 
-module.exports = productos;
+export { productos };
+export default productos;

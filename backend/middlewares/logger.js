@@ -1,4 +1,4 @@
-const { performance } = require("node:perf_hooks");
+import { performance } from "node:perf_hooks";
 
 function registrarSolicitud(req, res, next) {
   const inicio = performance.now();
@@ -12,4 +12,4 @@ function registrarSolicitud(req, res, next) {
   next();
 }
 
-module.exports = registrarSolicitud;
+export default registrarSolicitud;

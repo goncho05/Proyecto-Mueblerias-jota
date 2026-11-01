@@ -1,4 +1,4 @@
-import { Product } from '../models/Product.js'
+import { Product } from '../backend/models/product.js'
 
 // GET /api/productos (Listar todos)
 export async function obtenerProductos(req, res, next) {

@@ -11,6 +11,7 @@ const producto = {
 };
 
 beforeEach(() => {
+  window.history.pushState({}, "", "/");
   global.fetch = jest.fn((url) =>
     Promise.resolve({
       ok: true,
@@ -47,4 +48,67 @@ test("adds a product from the API to the cart", async () => {
   );
 
   expect(screen.getByLabelText("Carrito de compras, 1 productos")).toBeInTheDocument();
+});
+
+test("navigates seamlessly across SPA routes via Navbar links", async () => {
+  render(<App />);
+
+  // Verificar que los enlaces del Navbar tienen las rutas correctas sin '#'
+  const inicioLink = screen.getByRole("link", { name: /^inicio$/i });
+  const catalogoLink = screen.getByRole("link", { name: /^catálogo$/i });
+  const contactoLink = screen.getByRole("link", { name: /^contacto$/i });
+  const adminLink = screen.getByRole("link", { name: /^administración$/i });
+
+  expect(inicioLink).toHaveAttribute("href", "/");
+  expect(catalogoLink).toHaveAttribute("href", "/productos");
+  expect(contactoLink).toHaveAttribute("href", "/contacto");
+  expect(adminLink).toHaveAttribute("href", "/admin/crear-producto");
+
+  // Navegar a Contacto
+  fireEvent.click(contactoLink);
+  expect(
+    await screen.findByRole("heading", { name: /^contacto$/i })
+  ).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /preparar correo/i })).toBeInTheDocument();
+
+  // Navegar a Administración
+  fireEvent.click(adminLink);
+  expect(
+    await screen.findByRole("heading", { name: /crear nuevo producto/i })
+  ).toBeInTheDocument();
+
+  // Navegar a Catálogo
+  fireEvent.click(catalogoLink);
+  expect(
+    await screen.findByRole("heading", { name: /catálogo de productos/i })
+  ).toBeInTheDocument();
+
+  // Navegar de regreso a Inicio
+  fireEvent.click(inicioLink);
+  expect(
+    await screen.findByRole("heading", { name: /muebles con historia, para tu hogar/i })
+  ).toBeInTheDocument();
+
+  // Layout persistente: Navbar y Footer siempre presentes
+  expect(screen.getByRole("navigation", { name: /navegación principal/i })).toBeInTheDocument();
+  expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+});
+
+test("renders Home when accessing /inicio directly", async () => {
+  window.history.pushState({}, "", "/inicio");
+  render(<App />);
+
+  expect(
+    await screen.findByRole("heading", { name: /muebles con historia, para tu hogar/i })
+  ).toBeInTheDocument();
+});
+
+test("renders 404 view for unmatched routes", async () => {
+  window.history.pushState({}, "", "/ruta-inexistente");
+  render(<App />);
+
+  expect(
+    await screen.findByRole("heading", { name: /página no encontrada/i })
+  ).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: /volver al inicio/i })).toBeInTheDocument();
 });

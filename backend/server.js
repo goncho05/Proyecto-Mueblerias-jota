@@ -1,6 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("node:path");
+const dotenv = require("dotenv");
+const connectDB = require(".config/db");
+
+dotenv.config();
+
+connectDB();
 
 const registrarSolicitud = require("./middlewares/logger");
 const { rutaNoEncontrada, manejadorErrores } = require("./middlewares/errorHandler");

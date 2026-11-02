@@ -31,16 +31,15 @@ aplicacion.use("/api/productos", productosRouter);
 aplicacion.use(rutaNoEncontrada);
 aplicacion.use(manejadorErrores);
 
-function iniciarServidor() {
+function iniciarServidor() 
+{
   return aplicacion.listen(puerto, () => {
     console.log(`Servidor backend corriendo en http://localhost:${puerto}`);
   });
 }
 
-if (
-  process.argv[1] === new URL(import.meta.url).pathname ||
-  (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url))
-) {
+if (process.argv[1] === new URL(import.meta.url).pathname ||(process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url))) 
+{
   iniciarServidor();
 }
 

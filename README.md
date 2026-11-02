@@ -1,121 +1,70 @@
-# Mueblería Hermanos Jota — E-commerce (Sprint 5 y 6)
+# Mueblería Hermanos Jota — E-commerce
 
-Aplicación web full stack para la Mueblería Hermanos Jota con persistencia en MongoDB y operaciones CRUD completas. Incluye un cliente en React con React Router DOM y una API RESTful en Node.js y Express conectada con Mongoose.
+Aplicación web de catálogo para la Mueblería Hermanos Jota. Incluye un frontend en React, una API REST en Node.js y Express, consulta de productos, vista de detalle y carrito de compras en memoria.
 
-## 👥 Integrantes
+## Integrantes
 - Juan Diego Cumbeto
 - Leonardo Docimo
 - Delfina Herrera
 - Gonzalo Esteban Ibrahim
 - Valentina Rudelli
 
----
+## Arquitectura
+- `/backend` — API REST con Node.js + Express + MongoDB
+- `/client` — Frontend con React (creado con `create-react-app`)
 
-## 🌐 Enlaces de Despliegue (Entregables)
-- **Frontend (Vercel / Netlify):** `[Coloca aquí el enlace a tu frontend desplegado]`
-- **Backend (Render):** `[Coloca aquí el enlace a tu API en Render]/api/productos`
+El frontend ya no tiene los productos hardcodeados: los pide al backend con `fetch` a `GET /api/productos`. El backend expone los datos que antes vivían en `productos.js` del lado del cliente.
 
----
+- **Backend:** `server.js` centraliza la configuración; las rutas están separadas en `routes/productos.routes.js` con `express.Router`, y cuenta con middlewares propios: `logger.js` (loguea método y URL de cada solicitud) y `errorHandler.js` (maneja 404 y errores de forma centralizada). La conexión a la base de datos y el puerto se configuran mediante variables de entorno desde el archivo `.env`.
+- **Frontend:** `App.js` es el único componente con estado global (la vista actual y el carrito). El resto de los componentes (`Navbar`, `ProductList`, `ProductCard`, `ProductDetail`, `ContactForm`, `Footer`) reciben lo que necesitan por props y no comparten estado entre sí directamente.
 
-## 🏗️ Arquitectura del Proyecto
-
-```
-Proyecto-Mueblerias-jota/
-├── backend/
-│   ├── config/             # Conexión a MongoDB (db.js)
-│   ├── controllers/        # Controladores CRUD (producto.controller.js)
-│   ├── data/               # Catálogo inicial de muestra (productos.js)
-│   ├── middlewares/        # Logger y manejador centralizado de errores
-│   ├── models/             # Esquema y modelo Mongoose (product.js)
-│   ├── routes/             # Enrutador Express (/api/productos)
-│   ├── seed.js             # Script para inicializar/poblar la base de datos
-│   └── server.js           # Servidor Express principal
-└── client/
-    ├── src/
-    │   ├── components/     # ProductList, ProductCard, ProductDetail, AdminProductForm, Navbar, Footer
-    │   ├── pages/          # Home, etc.
-    │   ├── services/       # Cliente HTTP (fetch) para el CRUD contra la API
-    │   └── App.jsx         # Ruteo dinámico con React Router DOM
-```
+## Decisiones tomadas
+- El carrito vive como estado en `App.js` (no en cada componente) porque el contador tiene que verse en el `Navbar` y el botón de agregar está en `ProductDetail` — dos componentes distintos necesitan la misma información.
+- La navegación entre catálogo/detalle/contacto se resuelve con renderizado condicional según un estado `vista`, sin librería de rutas, porque la consigna no pide React Router.
+- El backend corre en el puerto configurado en el `.env` (por defecto 5000 o 3001) y el cliente en el 3000 (el que usa `create-react-app` por defecto), por eso el backend necesita el middleware `cors`.
+- El archivo `.env` se encuentra ignorado en el `.gitignore` por seguridad para proteger credenciales y variables de entorno. Se incluye un archivo `.env.example` como plantilla base para la configuración local.
 
 ---
 
-## 📡 API RESTful (Endpoints)
+## 🛠️ Variables de entorno (`.env.example`)
 
-| Método | Endpoint | Descripción | Código de éxito |
-| :--- | :--- | :--- | :---: |
-| `GET` | `/api/productos` | Devuelve todos los productos | 200 OK |
-| `GET` | `/api/productos/:id` | Devuelve un producto por `_id` | 200 OK |
-| `POST` | `/api/productos` | Crea un producto en la base de datos | 201 Created |
-| `PUT` | `/api/productos/:id` | Actualiza un producto existente | 200 OK |
-| `DELETE` | `/api/productos/:id` | Elimina un producto por `_id` | 200 OK |
+Crea un archivo `.env` en la raíz de la carpeta `/backend` tomando como referencia el siguiente esquema:
 
----
-
-## ⚙️ Variables de Entorno
-
-### Backend (`backend/.env`)
 ```env
 PORT=5000
-# Para desarrollo local:
 MONGO_URI=mongodb://127.0.0.1:27017/muebleria_jota
-# Para producción en Render (MongoDB Atlas en la nube):
-# MONGO_URI=mongodb+srv://<usuario>:<password>@cluster0.xxxxx.mongodb.net/muebleria_jota?retryWrites=true&w=majority
-```
-
-### Frontend (`client/.env`)
-```env
-# Para desarrollo local:
-REACT_APP_API_URL=http://localhost:5000/api
-# Para producción en Vercel/Netlify:
-# REACT_APP_API_URL=https://tu-backend-en-render.onrender.com/api
 ```
 
 ---
 
-## 🚀 Instalación y Ejecución Local
+## Instalación y Ejecución
 
-### 1. Backend
+### Backend
 1. Ingresar a la carpeta del servidor:
    ```bash
    cd backend
    ```
-2. Instalar dependencias:
+2. Instalar las dependencias:
    ```bash
    npm install
    ```
-3. Configurar `.env` con las variables `PORT` y `MONGO_URI`.
-4. (Opcional) Poblar la base de datos con los 11 productos de muestra:
+3. Configurar las variables de entorno:
+   - Crear un archivo `.env` basado en `.env.example` y definir las variables `PORT` y `MONGO_URI`.
+4. Iniciar el servidor backend:
    ```bash
-   npm run seed
+   node server.js
    ```
-5. Iniciar el servidor backend:
-   ```bash
-   npm start
-   ```
-   Estará corriendo en `http://localhost:5000`.
 
-### 2. Frontend (Client)
-1. Abrir otra terminal e ingresar a la carpeta del cliente:
+### Frontend (Client)
+1. Ingresar a la carpeta del cliente:
    ```bash
    cd client
    ```
-2. Instalar dependencias:
+2. Instalar las dependencias:
    ```bash
    npm install
    ```
-3. Iniciar la aplicación React:
+3. Iniciar la aplicación en modo desarrollo:
    ```bash
    npm start
    ```
-   Estará disponible en `http://localhost:3000`.
-
----
-
-## 🧭 Rutas del Frontend (React Router DOM)
-- `/` — Inicio
-- `/productos` — Catálogo dinámico conectado al backend
-- `/productos/:id` — Detalle del producto con `useParams`, agregar al carrito y botón para eliminar
-- `/contacto` — Formulario de contacto
-- `/admin/crear-producto` — Alta de producto con formulario controlado (`POST /api/productos`)
-- `/admin/editar-producto/:id` — Edición de producto con formulario precargado (`PUT /api/productos/:id`)

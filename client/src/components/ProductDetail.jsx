@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   obtenerProducto,
   obtenerUrlImagen,
@@ -65,14 +66,22 @@ function ProductDetail({ productId, onClose, onAddToCart }) {
         </button>
 
         {product && (
-          <button
-            type="button"
-            onClick={handleEliminar}
-            disabled={deleting}
-            className="rounded-lg border border-red-600 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-50"
-          >
-            {deleting ? "Eliminando..." : "Eliminar producto"}
-          </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              to={`/admin/editar-producto/${productId}`}
+              className="rounded-lg border border-[#A0522D] px-4 py-2 text-sm font-medium text-[#A0522D] no-underline transition hover:bg-[#A0522D]/10"
+            >
+              Editar producto
+            </Link>
+            <button
+              type="button"
+              onClick={handleEliminar}
+              disabled={deleting}
+              className="rounded-lg border border-red-600 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+            >
+              {deleting ? "Eliminando..." : "Eliminar producto"}
+            </button>
+          </div>
         )}
       </div>
 

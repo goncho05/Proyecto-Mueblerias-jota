@@ -1,9 +1,16 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { crearProducto } from "../services/productos";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  crearProducto,
+  actualizarProducto,
+  obtenerProducto,
+} from "../services/productos";
 
 function AdminProductForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const esEdicion = Boolean(id);
+
   const [formData, setFormData] = useState({
     nombre: "",
     precio: "",
@@ -13,7 +20,31 @@ function AdminProductForm() {
     descripcion: "",
   });
   const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(esEdicion);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (id) {
+      setLoadingData(true);
+      obtenerProducto(id)
+        .then((prod) => {
+          setFormData({
+            nombre: prod.nombre || "",
+            precio: String(prod.precio || ""),
+            stock: String(prod.stock !== undefined ? prod.stock : 0),
+            categoria: prod.categoria || "Asientos",
+            imagenUrl: prod.imagenUrl || prod.imagen || "",
+            descripcion: prod.descripcion || "",
+          });
+        })
+        .catch((err) => {
+          setError(err.message || "No se pudieron cargar los datos del producto.");
+        })
+        .finally(() => {
+          setLoadingData(false);
+        });
+    }
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,25 +77,41 @@ function AdminProductForm() {
 
     setLoading(true);
 
-    try {
-      await crearProducto({
-        nombre: formData.nombre.trim(),
-        precio: precioNumero,
-        stock: stockNumero,
-        categoria: formData.categoria.trim() || "Muebles",
-        imagenUrl: formData.imagenUrl.trim(),
-        descripcion: formData.descripcion.trim(),
-      });
+    const datosProducto = {
+      nombre: formData.nombre.trim(),
+      precio: precioNumero,
+      stock: stockNumero,
+      categoria: formData.categoria.trim() || "Muebles",
+      imagenUrl: formData.imagenUrl.trim(),
+      descripcion: formData.descripcion.trim(),
+    };
 
-      alert("¡Producto creado con éxito!");
-      // Navegación programática con useNavigate al catálogo de productos
-      navigate("/productos");
+    try {
+      if (esEdicion) {
+        await actualizarProducto(id, datosProducto);
+        alert("¡Producto actualizado con éxito!");
+        navigate(`/productos/${id}`);
+      } else {
+        await crearProducto(datosProducto);
+        alert("¡Producto creado con éxito!");
+        navigate("/productos");
+      }
     } catch (err) {
       setError(err.message || "Error al guardar el producto en el servidor.");
     } finally {
       setLoading(false);
     }
   };
+
+  if (loadingData) {
+    return (
+      <section className="w-full max-w-2xl mx-auto rounded-xl bg-white p-6 shadow-[0_8px_24px_rgba(45,45,45,0.08)]">
+        <p role="status" className="text-center text-[#2D2D2D]/75">
+          Cargando datos del producto para editar...
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full max-w-2xl mx-auto rounded-xl bg-white p-6 md:p-8 shadow-[0_8px_24px_rgba(45,45,45,0.08)]">
@@ -73,10 +120,12 @@ function AdminProductForm() {
           Panel de Administración
         </span>
         <h1 className="mt-2 font-titulos text-2xl font-bold uppercase tracking-[0.08em] text-[#A0522D] md:text-3xl">
-          Alta de Producto
+          {esEdicion ? "Editar Producto" : "Alta de Producto"}
         </h1>
         <p className="mt-1 text-sm text-[#2D2D2D]/75">
-          Completá el siguiente formulario controlado para registrar un nuevo mueble en la base de datos.
+          {esEdicion
+            ? "Modificá los campos que desees actualizar en la base de datos."
+            : "Completá el siguiente formulario controlado para registrar un nuevo mueble en la base de datos."}
         </p>
       </div>
 
@@ -193,7 +242,7 @@ function AdminProductForm() {
         <div className="mt-2 flex flex-wrap items-center justify-end gap-3">
           <button
             type="button"
-            onClick={() => navigate("/productos")}
+            onClick={() => (esEdicion ? navigate(`/productos/${id}`) : navigate("/productos"))}
             className="rounded-lg border border-[#A0522D] px-5 py-2.5 text-sm font-medium text-[#A0522D] transition hover:bg-[#A0522D]/10"
           >
             Cancelar
@@ -204,7 +253,7 @@ function AdminProductForm() {
             disabled={loading}
             className="rounded-lg bg-[#A0522D] px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#D4A437] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading ? "Guardando..." : "Crear Producto"}
+            {loading ? "Guardando..." : esEdicion ? "Guardar Cambios" : "Crear Producto"}
           </button>
         </div>
       </form>
@@ -213,4 +262,3 @@ function AdminProductForm() {
 }
 
 export default AdminProductForm;
-

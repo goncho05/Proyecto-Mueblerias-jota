@@ -164,6 +164,10 @@ function AppContent() {
             element={<AdminCreateProductView />}
           />
           <Route
+            path="/admin/editar-producto/:id"
+            element={<AdminProductForm />}
+          />
+          <Route
             path="*"
             element={<NotFoundView />}
           />

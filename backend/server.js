@@ -16,7 +16,7 @@ dotenv.config();
 connectDB();
 
 const aplicacion = express();
-const puerto = process.env.PORT || 3001;
+const puerto = process.env.PORT || 5000;
 
 aplicacion.use(cors());
 aplicacion.use(express.json());

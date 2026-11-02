@@ -9,15 +9,28 @@ function manejadorErrores(error, req, res, next) {
     return next(error);
   }
 
-  const estado = Number.isInteger(error.status) && error.status >= 400 && error.status < 600
-    ? error.status
-    : 500;
+  let estado =
+    Number.isInteger(error.status) && error.status >= 400 && error.status < 600
+      ? error.status
+      : 500;
 
-  console.error(`${req.method} ${req.path} - ${estado}: ${error.message}`);
+  let mensaje = error.message;
+
+  if (error.name === "CastError") {
+    estado = 404;
+    mensaje = "Producto no encontrado (ID inválido)";
+  } else if (error.name === "ValidationError") {
+    estado = 400;
+    mensaje = Object.values(error.errors || {})
+      .map((val) => val.message)
+      .join(", ");
+  }
+
+  console.error(`${req.method} ${req.path} - ${estado}: ${mensaje}`);
 
   res.status(estado).json({
     error: {
-      message: estado === 500 ? "Error interno del servidor" : error.message,
+      message: estado === 500 ? "Error interno del servidor" : mensaje,
     },
   });
 }

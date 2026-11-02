@@ -68,3 +68,6 @@ MONGO_URI=mongodb://127.0.0.1:27017/muebleria_jota
    ```bash
    npm start
    ```
+## Entregables:
+- Frontend desplegado: https://proyecto-mueblerias-jota-onbs8vytl-juan-ffb8.vercel.app
+- Backend desplegado: https://proyecto-mueblerias-jota.onrender.com

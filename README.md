@@ -26,7 +26,7 @@ El frontend ya no tiene los productos hardcodeados: los pide al backend con `fet
 
 ---
 
-## 🛠️ Variables de entorno (`.env.example`)
+## Variables de entorno (`.env.example`)
 
 Crea un archivo `.env` en la raíz de la carpeta `/backend` tomando como referencia el siguiente esquema:
 

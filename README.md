@@ -1,70 +1,69 @@
 # Mueblería Hermanos Jota — E-commerce
 
-Aplicación web de catálogo para la **Mueblería Hermanos Jota**. Incluye un frontend en React, una API REST en Node.js y Express, consulta de productos, vista de detalle y carrito de compras en memoria.
+Aplicación web de catálogo para la Mueblería Hermanos Jota. Incluye un frontend en React, una API REST en Node.js y Express, consulta de productos, vista de detalle y carrito de compras en memoria.
 
 ## Integrantes
-
 - Juan Diego Cumbeto
 - Leonardo Docimo
 - Delfina Herrera
 - Gonzalo Esteban Ibrahim
 - Valentina Rudelli
 
----
-
 ## Arquitectura
-
-- **/backend** — API REST con Node.js + Express
-- **/client** — Frontend con React (creado con `create-react-app`)
+- `/backend` — API REST con Node.js + Express + MongoDB
+- `/client` — Frontend con React (creado con `create-react-app`)
 
 El frontend ya no tiene los productos hardcodeados: los pide al backend con `fetch` a `GET /api/productos`. El backend expone los datos que antes vivían en `productos.js` del lado del cliente.
 
-- **Backend:** `server.js` centraliza la configuración; las rutas están separadas en `routes/productos.routes.js` con `express.Router`, y hay dos middlewares propios: `logger.js` (loguea método y URL de cada solicitud) y `errorHandler.js` (maneja 404 y errores de forma centralizada).
-- **Frontend:** `App.js` es el único componente con estado global (la vista actual y el carrito). El resto de los componentes (`Navbar`, `ProductList`, `ProductCard`, `ProductDetail`, `ContactForm`, `Footer`) reciben lo que necesitan por `props` y no comparten estado entre sí directamente.
+- **Backend:** `server.js` centraliza la configuración; las rutas están separadas en `routes/productos.routes.js` con `express.Router`, y cuenta con middlewares propios: `logger.js` (loguea método y URL de cada solicitud) y `errorHandler.js` (maneja 404 y errores de forma centralizada). La conexión a la base de datos y el puerto se configuran mediante variables de entorno desde el archivo `.env`.
+- **Frontend:** `App.js` es el único componente con estado global (la vista actual y el carrito). El resto de los componentes (`Navbar`, `ProductList`, `ProductCard`, `ProductDetail`, `ContactForm`, `Footer`) reciben lo que necesitan por props y no comparten estado entre sí directamente.
+
+## Decisiones tomadas
+- El carrito vive como estado en `App.js` (no en cada componente) porque el contador tiene que verse en el `Navbar` y el botón de agregar está en `ProductDetail` — dos componentes distintos necesitan la misma información.
+- La navegación entre catálogo/detalle/contacto se resuelve con renderizado condicional según un estado `vista`, sin librería de rutas, porque la consigna no pide React Router.
+- El backend corre en el puerto configurado en el `.env` (por defecto 5000 o 3001) y el cliente en el 3000 (el que usa `create-react-app` por defecto), por eso el backend necesita el middleware `cors`.
+- El archivo `.env` se encuentra ignorado en el `.gitignore` por seguridad para proteger credenciales y variables de entorno. Se incluye un archivo `.env.example` como plantilla base para la configuración local.
 
 ---
 
-## Decisiones tomadas
+## Variables de entorno (`.env.example`)
 
-- El carrito vive como estado en `App.js` (no en cada componente) porque el contador tiene que verse en el `Navbar` y el botón de agregar está en `ProductDetail` — dos componentes distintos necesitan la misma información.
-- La navegación entre catálogo/detalle/contacto se resuelve con renderizado condicional según un estado `vista`, sin librería de rutas, porque la consigna no pide React Router.
-- El backend corre en el puerto `3001` y el cliente en el `3000` (el que usa `create-react-app` por defecto), por eso el backend necesita el middleware `cors`.
+Crea un archivo `.env` en la raíz de la carpeta `/backend` tomando como referencia el siguiente esquema:
+
+```env
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/muebleria_jota
+```
 
 ---
 
 ## Instalación y Ejecución
 
 ### Backend
-
 1. Ingresar a la carpeta del servidor:
    ```bash
    cd backend
    ```
-
 2. Instalar las dependencias:
    ```bash
    npm install
    ```
-
-3. Iniciar el servidor backend:
+3. Configurar las variables de entorno:
+   - Crear un archivo `.env` basado en `.env.example` y definir las variables `PORT` y `MONGO_URI`.
+4. Iniciar el servidor backend:
    ```bash
    node server.js
    ```
 
----
-
 ### Frontend (Client)
-
 1. Ingresar a la carpeta del cliente:
    ```bash
    cd client
    ```
-
 2. Instalar las dependencias:
    ```bash
    npm install
    ```
-
 3. Iniciar la aplicación en modo desarrollo:
    ```bash
    npm start

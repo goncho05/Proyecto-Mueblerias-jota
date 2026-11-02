@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
 import ContactForm from "./components/ContactForm";
+import AdminProductForm from "./components/AdminProductForm";
 
 // Vista de Catálogo de Productos
 function CatalogView({ onAddToCart }) {
@@ -62,59 +63,9 @@ function ContactView() {
   );
 }
 
-// Vista de Administración (preparada para el módulo de alta de productos)
+// Vista de Administración (módulo de alta de productos)
 function AdminCreateProductView() {
-  return (
-    <section className="w-full rounded-xl bg-white p-6 shadow-[0_8px_24px_rgba(45,45,45,0.08)]">
-      <div className="mb-6 border-b border-[#A0522D]/15 pb-4">
-        <span className="inline-block rounded-full bg-[#A0522D]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#A0522D]">
-          Panel de Administración
-        </span>
-        <h1 className="mt-2 font-titulos text-2xl font-bold uppercase tracking-[0.08em] text-[#A0522D] md:text-3xl">
-          Crear Nuevo Producto
-        </h1>
-        <p className="mt-1 text-sm text-[#2D2D2D]/75">
-          Módulo administrativo para dar de alta nuevos muebles y piezas en el catálogo.
-        </p>
-      </div>
-
-      <div className="rounded-xl border-2 border-dashed border-[#A0522D]/30 bg-[#F5E6D3]/20 p-8 text-center">
-        <div className="mx-auto max-w-md">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#A0522D]/10 text-[#A0522D]">
-            <svg
-              className="h-7 w-7"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-          </div>
-          <h2 className="mt-4 font-titulos text-lg font-bold text-[#2D2D2D]">
-            Ruta Preparada para Gestión de Catálogo
-          </h2>
-          <p className="mt-2 text-sm text-[#2D2D2D]/80">
-            Esta sección queda integrada en el sistema de ruteo para el desarrollo del formulario de creación y administración de productos.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/productos"
-              className="rounded-lg bg-[#A0522D] px-5 py-2.5 text-sm font-medium text-white no-underline transition hover:bg-[#D4A437]"
-            >
-              Ir al Catálogo
-            </Link>
-            <Link
-              to="/"
-              className="rounded-lg border border-[#A0522D] px-5 py-2.5 text-sm font-medium text-[#A0522D] no-underline transition hover:bg-[#A0522D]/10"
-            >
-              Volver al Inicio
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <AdminProductForm />;
 }
 
 // Vista 404 No Encontrado
@@ -152,18 +103,19 @@ function AppContent() {
   const navigate = useNavigate();
 
   const addToCart = (product) => {
+    const prodId = product._id || product.id;
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
+      const existingItem = prevCart.find((item) => (item._id || item.id) === prodId);
 
       if (existingItem) {
         return prevCart.map((item) =>
-          item.id === product.id
+          (item._id || item.id) === prodId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
 
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, id: prodId, quantity: 1 }];
     });
   };
 
@@ -233,4 +185,3 @@ function App() {
 }
 
 export default App;
-

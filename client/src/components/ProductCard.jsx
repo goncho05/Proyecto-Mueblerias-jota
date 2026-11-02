@@ -6,9 +6,9 @@ function ProductCard({ product, onAddToCart }) {
 
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-[#A0522D]/15 bg-white shadow-[0_4px_16px_rgba(45,45,45,0.06)] transition hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(45,45,45,0.12)]">
-      {product.imagen && (
+      {(product.imagenUrl || product.imagen) && (
         <img
-          src={obtenerUrlImagen(product.imagen)}
+          src={obtenerUrlImagen(product.imagenUrl || product.imagen)}
           alt={product.nombre}
           className="h-56 w-full object-cover"
           loading="lazy"
